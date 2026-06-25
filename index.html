@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday MOTU!</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="candleIntro" class="candle-intro">
+        <div class="candle-section">
+            <h1 class="candle-title">Make a Wish</h1>
+            <div class="candle-container">
+                <div class="candle">
+                    <div class="candle-body"></div>
+                    <div class="flame" id="flame">
+                        <div class="flame-inner"></div>
+                    </div>
+                </div>
+            </div>
+            <p class="candle-instruction">Blow on your screen or use the button below.</p>
+            <div class="intro-actions">
+                <button class="blow-button" id="blowButton">Blow the Candle</button>
+                <button class="skip-button" id="skipButton">Skip Intro</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="stars" id="starsContainer"></div>
+
+    <div class="cake-layers" aria-hidden="true">
+        <div class="cake-topper"></div>
+        <div class="cake-layer layer-7"></div>
+        <div class="cake-layer layer-6"></div>
+        <div class="cake-layer layer-5"></div>
+        <div class="cake-layer layer-4"></div>
+        <div class="cake-layer layer-3"></div>
+        <div class="cake-layer layer-2"></div>
+        <div class="cake-layer layer-1"></div>
+        <div class="cake-stand"></div>
+        <div class="cake-shadow"></div>
+    </div>
+
+    <audio id="birthdaySong" autoplay loop>
+        <source src="birthday-song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <button class="mute-button" id="muteButton" title="Play or mute the birthday song">Play Music</button>
+
+    <div class="container" id="mainContent" style="display: none;">
+        <div class="balloons balloons-left" aria-hidden="true">
+            <div class="balloon balloon-1"></div>
+            <div class="balloon balloon-2"></div>
+            <div class="balloon balloon-3"></div>
+            <div class="balloon balloon-4"></div>
+            <div class="balloon balloon-5"></div>
+            <div class="balloon balloon-6"></div>
+            <div class="balloon balloon-7"></div>
+            <div class="balloon balloon-8"></div>
+        </div>
+
+        <div class="balloons balloons-right" aria-hidden="true">
+            <div class="balloon balloon-9"></div>
+            <div class="balloon balloon-10"></div>
+            <div class="balloon balloon-11"></div>
+            <div class="balloon balloon-12"></div>
+            <div class="balloon balloon-13"></div>
+            <div class="balloon balloon-14"></div>
+            <div class="balloon balloon-15"></div>
+            <div class="balloon balloon-16"></div>
+        </div>
+
+        <main class="hero-shell">
+            <header class="header">
+                <p class="title-main">&#127874;</p>
+                <p class="eyebrow">A celebration made with love</p>
+                <h1 class="greeting-text">Happy Birthday, MOTU</h1>
+                <p class="subtitle">Wishing you a beautiful day, a bright year ahead, and the sweetest moments to remember.</p>
+            </header>
+
+            <section class="message-section reveal">
+                <div class="card">
+                    <h2 class="card-title">You deserve every lovely thing</h2>
+                    <p class="card-text">May your day be full of calm joy, warm smiles, happy surprises, and memories that stay close to your heart.</p>
+                    <div class="divider"></div>
+                    <p class="signature">With love, VIRANSH GAUTAM</p>
+                </div>
+            </section>
+
+            <section class="gallery-section reveal">
+                <h3 class="gallery-title">Favorite Memories</h3>
+                <p class="gallery-copy">Open the camera, capture a few happy moments, and keep them right here on the page.</p>
+                <div class="photo-gallery-container">
+                    <button class="view-photos-button" id="openCameraBtn" type="button">
+                        <span class="button-icon">&#128247;</span>
+                        <span class="button-text">Open My Camera</span>
+                    </button>
+                    <button class="upload-photos-button" id="uploadPhotosBtn" type="button">Add From Device</button>
+                </div>
+                <p class="gallery-status" id="galleryStatus">No memories saved yet. Take a photo to start the gallery.</p>
+                <div class="memory-gallery" id="memoryGallery" aria-live="polite">
+                    <div class="empty-gallery" id="emptyGallery">
+                        <p class="empty-gallery-title">Your photo strip is waiting.</p>
+                        <p class="empty-gallery-copy">Snap a picture and it will appear here instantly.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <canvas id="confetti" class="confetti-canvas"></canvas>
+
+        <footer class="footer reveal">
+            <p>Make a wish and enjoy every beautiful moment.</p>
+            <p class="year">2026 Celebration</p>
+        </footer>
+    </div>
+
+    <input id="photoUploadInput" type="file" accept="image/*" multiple hidden>
+
+    <div class="camera-modal" id="cameraModal" hidden>
+        <div class="camera-dialog" role="dialog" aria-modal="true" aria-labelledby="cameraModalTitle">
+            <div class="camera-modal-header">
+                <div>
+                    <p class="camera-kicker">Memory Camera</p>
+                    <h2 class="camera-modal-title" id="cameraModalTitle">Capture a birthday moment</h2>
+                </div>
+                <button class="camera-close-button" id="closeCameraBtn" type="button" aria-label="Close camera">&times;</button>
+            </div>
+
+            <div class="camera-preview-frame">
+                <video id="cameraPreview" autoplay playsinline muted></video>
+                <div class="camera-placeholder" id="cameraPlaceholder">
+                    <p class="camera-placeholder-title">Camera preview will appear here.</p>
+                    <p class="camera-placeholder-copy">Allow access when your browser asks for permission.</p>
+                </div>
+            </div>
+
+            <p class="camera-help-text" id="cameraHelpText">Use this on `localhost` or HTTPS if your browser blocks camera access on local files.</p>
+
+            <div class="camera-actions">
+                <button class="camera-action-primary" id="capturePhotoBtn" type="button">Take Photo</button>
+                <button class="camera-action-secondary" id="switchCameraBtn" type="button">Switch Camera</button>
+                <button class="camera-action-secondary" id="cameraUploadBtn" type="button">Upload Instead</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
